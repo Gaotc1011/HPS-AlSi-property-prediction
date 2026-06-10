@@ -1,10 +1,10 @@
 # HPS-AlSi-property-prediction
 
-A deep learning-based framework for predicting mechanical properties of Al-Si alloys from microstructure images using Convolutional Neural Networks.
+A deep learning-based framework for predicting mechanical properties of high pressure solidified Al-Si alloys from microstructure images using Convolutional Neural Networks.
 
 ## Overview
 
-This project uses a CNN-based model to predict mechanical properties (Ultimate Tensile Strength, Yield Strength, and Hardness) of Al-Si alloys from VTK format microstructure images. The model takes phase and composition data as inputs and outputs multiple material properties simultaneously.
+This project uses a CNN-based model to predict mechanical properties (Ultimate Tensile Strength, Yield Strength, and Hardness) of Al-Si alloys from VTK format microstructure images. The model takes phase and composition field data as inputs and outputs multiple material properties simultaneously.
 
 ## Features
 
@@ -21,7 +21,7 @@ HPS-AlSi-property-prediction/
 ├── dataloader.py           # Data loading and preprocessing
 ├── property-predictor.py   # Model definition and training pipeline
 ├── readvtk.py             # VTK file reading utility
-├── data_try-4/            # Sample data directory with VTK files and CSV labels
+├── train-data/            # Sample data directory with VTK files and CSV labels
 ├── model-results/         # Output directory for trained models and results
 └── README.md              # This file
 ```
@@ -125,15 +125,6 @@ Predictor (Property Prediction):
 Output: (batch_size, 3)  # 3 properties: UTS, YS, HV
 ```
 
-## Dataset Split
-
-The dataset is automatically split into:
-- **Training**: 80%
-- **Testing**: 10%
-- **Validation**: 10%
-
-Splits are controlled by the `seed` parameter for reproducibility.
-
 ## Output Files
 
 After training/inference, the following files are generated in `model-results/`:
@@ -164,40 +155,9 @@ The model evaluates predictions using:
 - **MAE**: Mean Absolute Error
 - **RMSE**: Root Mean Squared Error
 
-## Example Workflow
-
-```python
-# 1. Create trainer
-trainer = Training_Autoencoder(data_dir="./data_try-4", model_dir="./results/")
-
-# 2. Load dataset
-trainer.load_dataset()
-
-# 3. Train model
-trainer.train(maxiter=100, lr=0.001)
-
-# 4. Inference
-trainer.infer()
-```
-
-## Troubleshooting
-
-**Issue**: CUDA out of memory
-- **Solution**: Reduce `batch_size` in DataLoader or use CPU
-
-**Issue**: VTK files not found
-- **Solution**: Ensure VTK files are in the specified `data_dir` and named correctly (containing "phas" or "comp")
-
-**Issue**: CSV ID mismatch
-- **Solution**: Verify that IDs in CSV match those extracted from VTK filenames
-
 ## Citation
 
 If you use this code, please cite the corresponding paper.
-
-## License
-
-[Add your license here]
 
 ## Contact
 
